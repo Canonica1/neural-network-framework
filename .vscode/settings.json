@@ -1,0 +1,6 @@
+{
+    "window.enableMenuBarMnemonics": false,
+    "window.customMenuBarAltFocus": false,
+    "window.menuBarVisibility": "hidden",
+    "terminal.integrated.allowMnemonics": false
+}
