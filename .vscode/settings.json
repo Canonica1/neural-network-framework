@@ -2,5 +2,8 @@
     "window.enableMenuBarMnemonics": false,
     "window.customMenuBarAltFocus": false,
     "window.menuBarVisibility": "hidden",
-    "terminal.integrated.allowMnemonics": false
+    "terminal.integrated.allowMnemonics": false,
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH": "~/local/fbcode/installed"
+    }
 }

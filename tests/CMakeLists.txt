@@ -1,0 +1,4 @@
+add_executable(test_linear_gradcheck test_linear_gradcheck.cpp)
+target_link_libraries(test_linear_gradcheck PRIVATE nn)
+
+add_test(NAME linear_gradcheck COMMAND test_linear_gradcheck)
