@@ -3,3 +3,5 @@
 /folly
 /data/mnist/*
 .idea
+*.xml
+*.iml
