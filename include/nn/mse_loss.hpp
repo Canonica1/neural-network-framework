@@ -1,38 +1,31 @@
 #pragma once
-#include <Eigen/Dense>
+
+#include "nn/linalg.hpp"
+
+#include <stdexcept>
 
 namespace nn {
-    using Matrix = Eigen::MatrixXf;
-    
-    class MSEloss {
-    public:
-        Matrix predict(const Matrix& x) const {
-            return x;
+struct LossResult {
+    float value;
+    Matrix gradient;
+};
+
+class MSELoss {
+  public:
+    LossResult evaluate(const Matrix &prediction, const Matrix &expected) const {
+        if (prediction.rows() != expected.rows() || prediction.cols() != expected.cols()) {
+            throw std::invalid_argument("MSELoss: prediction and target sizes differ");
+        }
+        if (expected.cols() == 0) {
+            throw std::invalid_argument("MSELoss: empty batch");
         }
 
-        Matrix forward(const Matrix& x) {
-            assert(y.size() != 0 && "MSEloss: target not set");
-            diff = x - y;
+        const Matrix diff = prediction - expected;
+        const float batch = static_cast<float>(expected.cols());
+        const float loss = diff.squaredNorm() / batch;
+        return {loss, (2.0f / batch) * diff};
+    }
+};
 
-            const float batch = static_cast<float>(y.cols());
-            const float loss = diff.squaredNorm() / batch;
-
-            Matrix out(1, 1);
-            out(0, 0) = loss;
-            return out;
-        }
-
-        Matrix backward(const Matrix& u) {
-            const float batch = static_cast<float>(y.cols());
-            return u(0, 0) * (2.0f / batch) * diff;
-        }
-
-        void update(float) {}
-        void zero_grad() { diff.resize(0,0); }
-
-        void set_target(const Matrix& y_true) { y = y_true; }
-    private:
-        Matrix y;
-        Matrix diff;
-    };
-}
+using MSEloss = MSELoss;
+} // namespace nn

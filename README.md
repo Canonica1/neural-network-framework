@@ -1,18 +1,30 @@
-Сразу сори за то что так фигово запускать, я настрою чтобы было легче
+# neural-network-framework
 
-1. Чтобы запустить надо добавить в data/mnist датасеты отсюда https://github.com/phoebetronic/mnist/tree/main
+Header-only учебный фреймворк для простых полносвязных нейросетей.
 
-2. склонировать csv-parser git clone https://github.com/vincentlaucsb/csv-parser.git
+## Зависимости
 
-3. склонировать и сбилдить folly
+- C++20 compiler
+- CMake 3.16+
+- Eigen3
 
-git clone https://github.com/facebook/folly
-cd folly
-sudo ./build/fbcode_builder/getdeps.py install-system-deps --recursive
+Если Eigen3 не установлен в системе, можно положить исходники Eigen в `third_party/eigen`.
 
-4. скачать Eigen3::Eigen
+## MNIST
 
-5. Обучение происходит в файле examples/demo.cpp
+```bash
+mkdir -p data/mnist
+curl -fL https://raw.githubusercontent.com/phoebetronic/mnist/main/mnist_train.csv.zip \
+    -o data/mnist/mnist_train.csv.zip
+unzip -o data/mnist/mnist_train.csv.zip -d data/mnist
+```
 
+## Сборка и запуск
 
-![мой последний запуск этого файла](image.png)
+```bash
+cmake -S . -B build
+cmake --build build
+./build/demo
+```
+
+На локальном запуске demo обучается 10 эпох и поднимает validation accuracy выше `0.95`.
