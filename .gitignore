@@ -1,0 +1,10 @@
+/build/
+/csv-parser
+/folly
+/data/mnist/*
+.idea/
+.vscode/
+/third_party/eigen/
+/third_party/eigenrand/
+*.xml
+*.iml
